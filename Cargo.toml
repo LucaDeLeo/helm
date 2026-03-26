@@ -1,0 +1,23 @@
+[workspace]
+resolver = "2"
+members = ["."]
+
+[package]
+name = "helm"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "helm"
+path = "src/main.rs"
+
+[dependencies]
+gpui_platform = { path = "../zed/crates/gpui_platform", features = ["font-kit"] }
+gpui = { path = "../zed/crates/gpui", default-features = false }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+smol = "2.0"
+
+[patch.crates-io]
+async-task = { git = "https://github.com/smol-rs/async-task.git", rev = "b4486cd71e4e94fbda54ce6302444de14f4d190e" }
