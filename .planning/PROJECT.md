@@ -45,7 +45,8 @@ A high-performance, customizable native ADE — GPU-accelerated UI that's snappi
 - Built on Zed's GPUI framework (local path dependency at `../zed/crates/gpui`), sharing the same GPU-accelerated rendering, reactive entity model, and element system
 - Current codebase has a working three-panel layout, Claude CLI streaming integration, custom text input widget, and Catppuccin Mocha theme
 - Reference apps: T3 Code (rich agent chat UX), Emdash/Conductor (multi-project sidebar with worktrees, PR integration, provider-agnostic design)
-- The `provider.rs` module already parses Claude's `stream-json` output format — needs to be abstracted into a trait for multi-provider support
+- The `provider.rs` module already parses Claude's `stream-json` output format — will be replaced by an Agent SDK bridge for richer control
+- T3 Code uses the Anthropic Agent SDK (`@anthropic-ai/claude-agent-sdk` npm package) directly — Helm will bridge to this SDK via a thin Bun sidecar process communicating over IPC
 - GPUI uses an entity-based reactive model (`Entity<T>` + `Render` trait) with subscription-based communication between components
 
 ## Constraints
@@ -53,7 +54,7 @@ A high-performance, customizable native ADE — GPU-accelerated UI that's snappi
 - **Tech stack**: Rust + GPUI only — no web technologies, no Electron, no JavaScript
 - **Platform**: macOS primary target (GPUI supports Linux/Windows but untested for Helm)
 - **Dependency**: Requires local Zed repo clone at `../zed/` for GPUI crates
-- **Providers**: Claude Code CLI and Codex CLI must be installed on the user's machine — Helm spawns them as subprocesses
+- **Providers**: Claude integration via Agent SDK (Bun sidecar bridge); Codex via CLI subprocess — Bun runtime and respective SDKs must be available
 - **Rendering**: All UI rendering through GPUI's element system — no webviews or HTML
 
 ## Key Decisions
@@ -61,7 +62,7 @@ A high-performance, customizable native ADE — GPU-accelerated UI that's snappi
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | GPUI over Electron/Tauri | Native GPU performance + Rust type safety + Zed ecosystem alignment | — Pending |
-| Subprocess CLI providers (not API) | Reuses existing CLI auth/config, provider-agnostic by design | — Pending |
+| Agent SDK via Bun sidecar (not CLI subprocess) | Richer control than CLI parsing — session management, tool permissions, model selection. T3 Code uses same approach (Node.js). Bun for faster startup. | — Pending |
 | Local-first, no remote for v1 | Reduces scope significantly while delivering core multi-project value | — Pending |
 | Worktrees over same-folder tasks | True isolation between parallel agent workspaces, cleaner git state | — Pending |
 | Multi-project sidebar as core UX | Not useful without it — single-project chat doesn't differentiate from existing tools | — Pending |

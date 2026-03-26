@@ -1,7 +1,7 @@
 # Requirements: Helm
 
 **Defined:** 2026-03-26
-**Core Value:** A high-performance, customizable native ADE — GPU-accelerated UI that's snappier than Electron alternatives, with full control over the agent workflow experience.
+**Core Value:** A high-performance, customizable native ADE -- GPU-accelerated UI that's snappier than Electron alternatives, with full control over the agent workflow experience.
 
 ## v1 Requirements
 
@@ -29,8 +29,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Providers
 
-- [ ] **PROV-01**: Provider trait abstracts CLI agent lifecycle (start, send message, receive stream, stop)
-- [ ] **PROV-02**: Claude Code provider parses stream-json output and emits normalized events
+- [ ] **PROV-01**: Provider trait abstracts agent lifecycle (start, send message, receive stream, stop) with an interface general enough for both SDK-bridge and CLI subprocess implementations
+- [ ] **PROV-02**: Claude Code provider communicates with a Bun sidecar running the Anthropic Agent SDK over stdin/stdout JSON IPC and emits normalized streaming events
 - [ ] **PROV-03**: Codex CLI provider parses JSONL output and emits normalized events
 - [ ] **PROV-04**: User can select which provider to use per workspace
 - [ ] **PROV-05**: Provider processes are tracked with proper lifecycle management (no zombie processes)
@@ -85,53 +85,53 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Feature | Reason |
 |---------|--------|
-| Built-in code editor | Helm orchestrates agents, not editing — use Zed/VS Code for that |
-| Web/browser-based interface | Desktop native only — GPUI doesn't support webviews |
-| Background/cloud agents | Local-first by design — completely different product category |
+| Built-in code editor | Helm orchestrates agents, not editing -- use Zed/VS Code for that |
+| Web/browser-based interface | Desktop native only -- GPUI doesn't support webviews |
+| Background/cloud agents | Local-first by design -- completely different product category |
 | Event-driven automations | Requires cloud infrastructure, not a desktop app feature |
 | Browser/web preview | Would require webview, breaking "no web technologies" constraint |
-| MCP server hosting | CLI agents handle MCP themselves — Helm passes through |
+| MCP server hosting | CLI agents handle MCP themselves -- Helm passes through |
 | Voice input | Niche feature, system-level dictation already available on macOS |
-| Real-time collaboration | Requires CRDT/OT networking — different product category |
+| Real-time collaboration | Requires CRDT/OT networking -- different product category |
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CHAT-01 | TBD | Pending |
-| CHAT-02 | TBD | Pending |
-| CHAT-03 | TBD | Pending |
-| CHAT-04 | TBD | Pending |
-| CHAT-05 | TBD | Pending |
-| CHAT-06 | TBD | Pending |
-| WORK-01 | TBD | Pending |
-| WORK-02 | TBD | Pending |
-| WORK-03 | TBD | Pending |
-| WORK-04 | TBD | Pending |
-| WORK-05 | TBD | Pending |
-| WORK-06 | TBD | Pending |
-| WORK-07 | TBD | Pending |
-| WORK-08 | TBD | Pending |
-| PROV-01 | TBD | Pending |
-| PROV-02 | TBD | Pending |
-| PROV-03 | TBD | Pending |
-| PROV-04 | TBD | Pending |
-| PROV-05 | TBD | Pending |
-| PROV-06 | TBD | Pending |
-| NAV-01 | TBD | Pending |
-| NAV-02 | TBD | Pending |
-| NAV-03 | TBD | Pending |
-| NAV-04 | TBD | Pending |
-| NAV-05 | TBD | Pending |
-| PERS-01 | TBD | Pending |
-| PERS-02 | TBD | Pending |
-| PERS-03 | TBD | Pending |
+| PROV-01 | Phase 1 | Pending |
+| PROV-02 | Phase 1 | Pending |
+| PROV-05 | Phase 1 | Pending |
+| PROV-06 | Phase 1 | Pending |
+| WORK-02 | Phase 2 | Pending |
+| WORK-03 | Phase 2 | Pending |
+| WORK-07 | Phase 2 | Pending |
+| WORK-08 | Phase 2 | Pending |
+| WORK-01 | Phase 3 | Pending |
+| WORK-04 | Phase 3 | Pending |
+| WORK-05 | Phase 3 | Pending |
+| WORK-06 | Phase 3 | Pending |
+| NAV-01 | Phase 3 | Pending |
+| NAV-02 | Phase 3 | Pending |
+| NAV-03 | Phase 3 | Pending |
+| NAV-04 | Phase 3 | Pending |
+| NAV-05 | Phase 3 | Pending |
+| PERS-03 | Phase 3 | Pending |
+| CHAT-01 | Phase 4 | Pending |
+| CHAT-02 | Phase 4 | Pending |
+| CHAT-03 | Phase 4 | Pending |
+| CHAT-04 | Phase 4 | Pending |
+| CHAT-05 | Phase 4 | Pending |
+| CHAT-06 | Phase 4 | Pending |
+| PROV-03 | Phase 5 | Pending |
+| PROV-04 | Phase 5 | Pending |
+| PERS-01 | Phase 5 | Pending |
+| PERS-02 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 28 total
-- Mapped to phases: 0
-- Unmapped: 28
+- Mapped to phases: 28
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-26*
-*Last updated: 2026-03-26 after initial definition*
+*Last updated: 2026-03-26 after roadmap revision (Agent SDK architecture)*
